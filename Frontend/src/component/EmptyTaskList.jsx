@@ -1,7 +1,7 @@
 export function EmptyTaskList(){
     return (
         <>
-        <div class=" rounded-lg overflow-hidden h-96">
+        <div class=" rounded-lg overflow-hidden h-96 mt-2">
             <section class="bg-white py-16 px-4 h-full flex items-center">
                 <div class="max-w-3xl mx-auto text-center">
                     <div class="mb-8">

@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export function DisplayTasks() {
+export function DisplayTasks({title,description}) {
   const [IsEditing, setIsEditing] = useState(false);
 
   return (
     <>
-      <div class="flex border border-gray-700 rounded-lg p-4 bg-stone-800 shadow-sm mt-5 w-1/2 mx-auto">
+      <div class="flex border border-gray-700 rounded-lg p-4 bg-stone-800 shadow-sm mt-2 w-1/2 mx-auto">
         <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
           <span class="text-cyan-400 text-lg">⚡</span>
         </div>
@@ -30,12 +30,11 @@ export function DisplayTasks() {
               <>
                 <div class="task-content">
                   <h6 class="font-semibold text-white mb-1">
-                    Server Optimization
+                    {title}
                   </h6>
                   <hr class="my-1 border-gray-600" />
                   <p class="text-gray-300 text-sm break-words">
-                    Optimize server performance and reduce response times for
-                    better user experience.
+                    {description}
                   </p>
                 </div>
               </>

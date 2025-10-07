@@ -9,14 +9,27 @@ export function App() {
     console.log("taskList = ",taskList);
 
 
-
+    // on pageRefresh/firstRender data backend se laarhe
+    useEffect( ()=>{
+        axios.get("http://localhost:4000/taskList")
+        .then(function(response){
+            console.log("response = ",response);
+            setTaskList(response.data);
+        })
+        .catch(function(error){
+            console.log("error(frontend) = ",error)
+        })
+    },[])
 
 
 
   return (
     <>
       <Input></Input>
-      <DisplayTasks></DisplayTasks>
+      {taskList.length === 0 && <EmptyTaskList></EmptyTaskList>}
+      {taskList.length > 0 && taskList.map( (item)=>{
+        return <DisplayTasks {...item}></DisplayTasks>
+      })}
       
 
     </>
