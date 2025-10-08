@@ -44,7 +44,19 @@ app.post("/", async function (request, response) {
   }
 });
 
-
+app.delete("/", async function (request, response) {
+  try {
+    console.log("Electronics request originalURL =", request.originalUrl);
+    console.log("Electronics request method =", request.method);
+    console.log("Electronics request.body =", request.body);
+    taskList = taskList.filter((item) => {
+      if (item.id !== request.body.id) return true;
+    });
+    response.send("Item Deleted")
+  } catch (error) {
+    console.log("DELETE error(backend) = ", error);
+  }
+});
 
 app.listen(4000, function () {
   console.log("Server is running on port 4000");

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 
-export function DisplayTasks({ id, title, description , createdAt }) {
+export function DisplayTasks({ id, title, description , createdAt, deleteTask }) {
   const [IsEditing, setIsEditing] = useState(false);
 
+  
 
   return (
     <>
@@ -83,6 +84,9 @@ export function DisplayTasks({ id, title, description , createdAt }) {
                   </button>
                   <button
                     className="delete-btn border border-red-400 text-red-400 hover:bg-red-900 px-3 py-1 rounded text-sm"
+                    onClick={() => {
+                      deleteTask(id);
+                    }}
                   >
                     Delete
                   </button>

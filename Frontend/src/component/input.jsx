@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useRef } from "react";
 
-export function Input({addingAnItemIntoDB}) {
-    const titleRef = useRef();
-    const descriptionRef = useRef();    
+export function Input({ addingAnItemIntoDB }) {
+  const titleRef = useRef();
+  const descriptionRef = useRef();
   return (
     <>
       <div className="w-1/2 mx-auto bg-white rounded-xl shadow-lg p-8 mb-5">
@@ -30,8 +30,16 @@ export function Input({addingAnItemIntoDB}) {
               ref={descriptionRef}
             />
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-lg transition-colors whitespace-nowrap"
-          onClick={ ()=>{addingAnItemIntoDB(titleRef.current.value,descriptionRef.current.value);} }
+          <button
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-lg transition-colors whitespace-nowrap"
+            onClick={() => {
+              addingAnItemIntoDB(
+                titleRef.current.value,
+                descriptionRef.current.value
+              );
+              titleRef.current.value = "";
+              descriptionRef.current.value = "";
+            }}
           >
             Submit
           </button>
