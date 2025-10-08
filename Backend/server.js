@@ -58,6 +58,25 @@ app.delete("/", async function (request, response) {
   }
 });
 
+app.patch("/",async function(request,response){
+  try {
+    console.log("Electronics request originalURL =", request.originalUrl);
+    console.log("Electronics request method =", request.method);
+    console.log("Electronics request.body =", request.body);
+    taskList = taskList.map( (item)=>{
+      if(item.id === request.body.id){
+        item.title = request.body.title;
+        item.description = request.body.description;
+        item.updatedAt = new Date().toISOString().slice(0, 19).replace("T", " ");
+      }
+      return item;
+    })
+    response.send("Item Updated");
+  } catch (error) {
+    console.log("PATCH error(backend) = ", error);
+  }
+})
+
 app.listen(4000, function () {
   console.log("Server is running on port 4000");
 });

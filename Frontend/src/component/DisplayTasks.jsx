@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-export function DisplayTasks({ id, title, description , createdAt, deleteTask }) {
+export function DisplayTasks({ id, title, description , createdAt,updatedAt , deleteTask, updatingTask }) {
   const [IsEditing, setIsEditing] = useState(false);
-
+  const updatedTitleRef = useRef();
+  const updatedDescriptionRef = useRef();
   
 
   return (
@@ -20,13 +21,13 @@ export function DisplayTasks({ id, title, description , createdAt, deleteTask })
                   type="text"
                   className="w-full bg-gray-700 border border-gray-600 text-white rounded px-3 py-1 mb-2 text-sm"
                   placeholder="Edit Title"
-                  defaultValue="Edit Title"
+                  ref={updatedTitleRef}
                 />
                 <input
                   type="text"
                   className="w-full bg-gray-700 border border-gray-600 text-white rounded px-3 py-1 text-sm"
                   placeholder="Edit Description"
-                  defaultValue="Edit Description"
+                  ref={updatedDescriptionRef}
                 />
               </>
             ) : (
@@ -47,7 +48,7 @@ export function DisplayTasks({ id, title, description , createdAt, deleteTask })
               createdAt - {createdAt}
             </small>
             <small className="text-gray-400 text-xs whitespace-nowrap">
-              updatedAt - 
+              updatedAt - {updatedAt}
             </small>
           </div>
 
@@ -59,6 +60,9 @@ export function DisplayTasks({ id, title, description , createdAt, deleteTask })
                     className="save-btn border border-green-400 text-green-400 hover:bg-green-900 px-3 py-1 rounded text-sm mr-2"
                     onClick={() => {
                       setIsEditing(false);
+                      updatingTask(id,updatedTitleRef.current.value,updatedDescriptionRef.current.value);
+                      updatedTitleRef.current.value = ""
+                      updatedDescriptionRef.current.value = ""
                     }}
                   >
                     Save

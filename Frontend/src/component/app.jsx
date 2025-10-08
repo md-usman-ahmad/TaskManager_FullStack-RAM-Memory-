@@ -52,13 +52,30 @@ export function App() {
         console.log("error = ", error);
       });
   }
+
+  function handleUpdatingTask(id,updatedTitle,updatedDescription){
+    axios.patch("http://localhost:4000",{
+        id,
+        title : updatedTitle,
+        description : updatedDescription
+    })
+    .then(function(response){
+        console.log("response = ",response);
+        alert(response.data);
+        handleGettingAllItemsFromDB();
+    })
+    .catch(function(error){
+        console.log("error = ",error);
+    })
+  }
+
   return (
     <>
       <Input addingAnItemIntoDB={handleAddingAnItemIntoDB}></Input>
       {taskList.length === 0 && <EmptyTaskList></EmptyTaskList>}
       {taskList.length > 0 &&
         taskList.map((item) => {
-          return <DisplayTasks key={item.id} {...item} deleteTask={handleDeleteTask}></DisplayTasks>;
+          return <DisplayTasks key={item.id} {...item} deleteTask={handleDeleteTask} updatingTask={handleUpdatingTask}></DisplayTasks>;
         })}
     </>
   );
