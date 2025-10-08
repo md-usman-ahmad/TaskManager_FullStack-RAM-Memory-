@@ -10,8 +10,8 @@ export function App() {
 
 
     // on pageRefresh/firstRender data backend se laarhe
-    useEffect( ()=>{
-        axios.get("http://localhost:4000/taskList")
+    function handleGettingAllItemsFromDB(){
+        axios.get("http://localhost:4000")
         .then(function(response){
             console.log("response = ",response);
             setTaskList(response.data);
@@ -19,19 +19,34 @@ export function App() {
         .catch(function(error){
             console.log("error(frontend) = ",error)
         })
+    }
+    useEffect( ()=>{
+        handleGettingAllItemsFromDB();
     },[])
 
 
+    function handleAddingAnItemIntoDB(title,description){
+        axios.post("http://localhost:4000",{
+            title,
+            description
+        })
+        .then(function(response){
+            console.log("response = ",response);
+            alert(response.data)
+            handleGettingAllItemsFromDB();
+        })
+        .catch(function(error){
+            console.log("error = ",error);
+        })
+    }
 
   return (
     <>
-      <Input></Input>
+      <Input addingAnItemIntoDB={handleAddingAnItemIntoDB}></Input>
       {taskList.length === 0 && <EmptyTaskList></EmptyTaskList>}
       {taskList.length > 0 && taskList.map( (item)=>{
-        return <DisplayTasks {...item}></DisplayTasks>
+        return <DisplayTasks key={item.id} {...item}></DisplayTasks>
       })}
-      
-
     </>
   );
 }

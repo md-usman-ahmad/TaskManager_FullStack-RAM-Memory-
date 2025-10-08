@@ -13,28 +13,34 @@ app.use(
   })
 );
 
-let taskList = [
-  {
-    id: 1,
-    title: "Running",
-    description: "Running is good for Health",
-    createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
-  },
-  {
-    id: 1,
-    title: "Swimming",
-    description: "Swimming is good for Health",
-    createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
-  },
-];
+let taskList = [];
 
-app.get("/taskList", async function (request, response) {
+app.get("/", async function (request, response) {
   try {
     console.log("Electronics request originalURL =", request.originalUrl);
     console.log("Electronics request method =", request.method);
     response.send(taskList);
   } catch (error) {
     console.log("GET error(backend) = ", error);
+  }
+});
+
+app.post("/", async function (request, response) {
+  try {
+    console.log("Electronics request originalURL =", request.originalUrl);
+    console.log("Electronics request method =", request.method);
+    console.log("Electronics request.body =", request.body);
+    const newTask = {
+      id: taskList.length + 1,
+      title: request.body.title,
+      description: request.body.description,
+      createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
+    };
+    taskList.push(newTask);
+
+    response.send("Task Added");
+  } catch (error) {
+    console.log("POST error(backend) = ", error);
   }
 });
 
